@@ -10,7 +10,7 @@ WHEN NOT MATCHED THEN
     INSERT (id, full_name, email, phone, salt, hashed_password, status, role, addresses, point, e_wallet)
     VALUES ('U_ADMIN', N'Quản Trị Viên', 'admin@badminton.com', '0900000001', 
             'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-            '$2a$10$N9qo8uLOickgx2ZMRZoMye7FRNKvdhlWVGOe7jc7w.4lHJCJ0A3ZC',
+            '$2a$10$pF3J/Xvng74sVF6AnfsbTOrJUlCmEkpWniuM0Eysfo5LGs8O7aPzG',
             'ACTIVE', 'ADMIN', NULL, 100, 1000000.00);
 
 -- VENDOR account
@@ -21,7 +21,7 @@ WHEN NOT MATCHED THEN
     INSERT (id, full_name, email, phone, salt, hashed_password, status, role, addresses, point, e_wallet)
     VALUES ('U_VENDOR', N'Nhà Cung Cấp', 'vendor@badminton.com', '0900000002',
             'b2c3d4e5-f6a7-8901-bcde-f12345678901',
-            '$2a$10$5pW8Z8EDkUvVkJ3J5Fw6uOXJ4qHqP.xYZ3qF5X0vXy9Bz2lQvZK.m',
+            '$2a$10$pF3J/Xvng74sVF6AnfsbTOrJUlCmEkpWniuM0Eysfo5LGs8O7aPzG',
             'ACTIVE', 'VENDOR', NULL, 50, 500000.00);
 
 -- SHIPPER account
@@ -32,7 +32,7 @@ WHEN NOT MATCHED THEN
     INSERT (id, full_name, email, phone, salt, hashed_password, status, role, addresses, point, e_wallet)
     VALUES ('U_SHIPPER', N'Nhân Viên Giao Hàng', 'shipper@badminton.com', '0900000003',
             'c3d4e5f6-a7b8-9012-cdef-123456789012',
-            '$2a$10$7yG9R7LDjY8oXzWqMx4rPO9hS8qIq.aZb4rG6Y1wYz0Cd3mRwAL.o',
+            '$2a$10$pF3J/Xvng74sVF6AnfsbTOrJUlCmEkpWniuM0Eysfo5LGs8O7aPzG',
             'ACTIVE', 'SHIPPER', NULL, 30, 300000.00);
 
 -- USER account
@@ -43,7 +43,7 @@ WHEN NOT MATCHED THEN
     INSERT (id, full_name, email, phone, salt, hashed_password, status, role, addresses, point, e_wallet)
     VALUES ('U_USER', N'Người Dùng', 'user@badminton.com', '0900000004',
             'd4e5f6a7-b8c9-0123-def1-234567890123',
-            '$2a$10$8zH0S8MEkZV9pYA0rNx5sQ0jT9rJr.bAc5sH7Z2xZA1De4nSwBM.p',
+            '$2a$10$pF3J/Xvng74sVF6AnfsbTOrJUlCmEkpWniuM0Eysfo5LGs8O7aPzG',
             'ACTIVE', 'USER', NULL, 10, 100000.00);
 
 -- Categories
