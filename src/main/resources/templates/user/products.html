@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}">
+    <title>Sản phẩm</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container mt-4">
+    <h1 class="mb-4">Sản phẩm</h1>
+
+    <form class="row g-2 mb-4" th:action="@{/products}" method="get">
+        <div class="col-md-5">
+            <input type="text" class="form-control" name="q" placeholder="Tìm kiếm sản phẩm"
+                   th:value="${keyword}">
+        </div>
+        <div class="col-md-4">
+            <select class="form-select" name="category">
+                <option th:value="" th:selected="${categoryId == null || categoryId == ''}">Tất cả danh mục</option>
+                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"
+                        th:selected="${categoryId == c.id}"></option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-select" name="size">
+                <option th:value="20" th:selected="${20 == size}">20</option>
+                <option th:value="40" th:selected="${40 == size}">40</option>
+                <option th:value="60" th:selected="${60 == size}">60</option>
+            </select>
+        </div>
+        <div class="col-md-1 d-grid">
+            <button class="btn btn-primary" type="submit">Lọc</button>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-3 mb-4" th:each="p : ${products}">
+            <div class="card h-100">
+                <img th:src="${p.listImages}" class="card-img-top" alt="Product Image"
+                     style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${p.name}"></h5>
+                    <p class="card-text mb-2">
+                        <span class="text-danger fw-bold" th:text="${#numbers.formatCurrency(p.promotionalPrice ?: p.price)}"></span>
+                        <span th:if="${p.promotionalPrice}" class="text-muted text-decoration-line-through ms-2"
+                              th:text="${#numbers.formatCurrency(p.price)}"></span>
+                    </p>
+                    <a th:href="@{/products/{id}(id=${p.id})}" class="btn btn-outline-primary">Chi tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav th:if="${totalPages > 1}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/products(q=${keyword}, category=${categoryId}, page=${currentPage - 1}, size=${size})}">Trước</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${i == currentPage} ? 'active'">
+                <a class="page-link"
+                   th:href="@{/products(q=${keyword}, category=${categoryId}, page=${i}, size=${size})}"
+                   th:text="${i + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage + 1 >= totalPages} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/products(q=${keyword}, category=${categoryId}, page=${currentPage + 1}, size=${size})}">Sau</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

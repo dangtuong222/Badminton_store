@@ -1,6 +1,8 @@
 package vn.iotstar.config;
 
 import vn.iotstar.service.CustomUserDetailsService;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +19,14 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService userDetailsService;
     
+    @Autowired
+    private SaltedAuthenticationProvider saltedAuthenticationProvider;
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/register", "/login").permitAll()
+                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/register", "/login", "/verify-otp", "/forgot", "/reset", "/products/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/vendor/**").hasAnyRole("VENDOR", "ADMIN")
                 .requestMatchers("/shipper/**").hasRole("SHIPPER")
@@ -38,6 +43,11 @@ public class SecurityConfig {
             );
         
         return http.build();
+    }
+    
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        return new ProviderManager(saltedAuthenticationProvider);
     }
     
     @Bean

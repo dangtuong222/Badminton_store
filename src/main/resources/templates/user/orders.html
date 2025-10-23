@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}">
+    <title>Đơn hàng của tôi</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container mt-4">
+    <h1>Đơn hàng của tôi</h1>
+
+    <div th:each="entry : ${ordersByStatus}">
+        <h4 class="mt-4" th:text="${entry.key}"></h4>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                <tr>
+                    <th>Mã đơn</th>
+                    <th>Ngày tạo</th>
+                    <th>Trạng thái</th>
+                    <th>Tổng tiền</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="o : ${entry.value}">
+                    <td th:text="${o.id}"></td>
+                    <td th:text="${#temporals.format(o.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${o.status}"></td>
+                    <td th:text="${#numbers.formatCurrency(o.amountFromUser)}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, String> {
@@ -17,4 +19,8 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     List<Product> findTop10ByOrderBySoldDesc();
     
     List<Product> findByNameContainingIgnoreCaseAndIsActiveTrueAndIsSellingTrue(String name);
+
+    Page<Product> findByIsActiveTrueAndIsSellingTrue(Pageable pageable);
+    Page<Product> findByCategoryIdAndIsActiveTrueAndIsSellingTrue(String categoryId, Pageable pageable);
+    Page<Product> findByNameContainingIgnoreCaseAndIsActiveTrueAndIsSellingTrue(String name, Pageable pageable);
 }

@@ -22,10 +22,5 @@ public class HomeController {
         return "user/index";
     }
     
-    @GetMapping("/products")
-    public String products(Model model) {
-        List<Product> allProducts = productService.getAllActiveProducts();
-        model.addAttribute("products", allProducts);
-        return "user/products";
-    }
+    // Products page moved to ProductsController with pagination and filters
 }

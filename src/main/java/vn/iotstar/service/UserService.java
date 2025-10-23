@@ -46,6 +46,12 @@ public class UserService {
         return userRepository.findById(id);
     }
     
+    public Optional<User> findByUsernameEitherEmailOrPhone(String username) {
+        Optional<User> byEmail = userRepository.findByEmail(username);
+        if (byEmail.isPresent()) return byEmail;
+        return userRepository.findByPhone(username);
+    }
+    
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
