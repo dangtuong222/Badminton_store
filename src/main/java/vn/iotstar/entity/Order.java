@@ -75,6 +75,9 @@ public class Order {
     @OneToOne(mappedBy = "order")
     private Shipment shipment;
     
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
+    
     public enum OrderStatus {
         NOT_PROCESSED, PROCESSING, SHIPPED, DELIVERED, CANCELLED, RETURNED
     }

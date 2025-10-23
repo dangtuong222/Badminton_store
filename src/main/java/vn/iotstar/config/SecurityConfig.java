@@ -17,11 +17,14 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService userDetailsService;
     
+    @Autowired
+    private CustomAuthenticationSuccessHandler successHandler;
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/register", "/login").permitAll()
+                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/register", "/login", "/products").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/vendor/**").hasAnyRole("VENDOR", "ADMIN")
                 .requestMatchers("/shipper/**").hasRole("SHIPPER")
@@ -29,11 +32,12 @@ public class SecurityConfig {
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/")
+                .successHandler(successHandler)
+                .failureUrl("/login?error=true")
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/login?logout=true")
                 .permitAll()
             );
         

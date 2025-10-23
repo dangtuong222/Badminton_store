@@ -62,4 +62,8 @@ public class Store {
     @OneToMany(mappedBy = "store")
     @JsonIgnore
     private List<Order> orders;
+    
+    @OneToMany(mappedBy = "store")
+    @JsonIgnore
+    private List<Promotion> promotions;
 }

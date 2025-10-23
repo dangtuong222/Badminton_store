@@ -23,6 +23,9 @@ public class Category {
 
     @Column(columnDefinition = "NVARCHAR(1000)")
     private String description;
+    
+    @Column(name = "is_active")
+    private Boolean isActive = true;
 
     @CreationTimestamp
     @Column(name = "created_at")

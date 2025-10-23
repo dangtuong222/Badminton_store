@@ -1,6 +1,5 @@
 package vn.iotstar.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,34 +10,32 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "commissions")
+@Table(name = "shipping_providers")
 @Data
-public class Commission {
+public class ShippingProvider {
     @Id
     private String id;
-
-    @Column(nullable = false)
+    
+    @Column(nullable = false, columnDefinition = "NVARCHAR(200)")
     private String name;
-
-    @Column(name = "fee_percent", precision = 5, scale = 2)
-    private BigDecimal feePercent = BigDecimal.ZERO; // percentage, e.g. 5.00 -> 5%
-
-    @Column(columnDefinition = "NVARCHAR(500)")
+    
+    @Column(columnDefinition = "NVARCHAR(1000)")
     private String description;
-
+    
+    @Column(name = "shipping_fee", precision = 15, scale = 2)
+    private BigDecimal shippingFee = BigDecimal.ZERO;
+    
+    @Column(name = "is_active")
+    private Boolean isActive = true;
+    
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-
+    
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "commission")
-    @JsonIgnore
-    private List<Store> stores;
-
-    @OneToMany(mappedBy = "commission")
-    @JsonIgnore
-    private List<Order> orders;
+    
+    @OneToMany(mappedBy = "shippingProvider")
+    private List<Shipment> shipments;
 }

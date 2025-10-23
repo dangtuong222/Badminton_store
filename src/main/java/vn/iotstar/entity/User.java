@@ -67,11 +67,27 @@ public class User {
     @JsonIgnore
     private List<Shipment> shipments;
     
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<UserAddress> userAddresses;
+    
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Favorite> favorites;
+    
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<ProductView> productViews;
+    
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<CartItem> cartItems;
+    
     public enum UserStatus {
         ACTIVE, INACTIVE, BANNED
     }
     
     public enum UserRole {
-        USER, ADMIN, SHIPPER
+        USER, ADMIN, SHIPPER, VENDOR
     }
 }

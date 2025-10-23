@@ -59,6 +59,9 @@ public class Product {
     @Column(precision = 2, scale = 1)
     private BigDecimal rating = BigDecimal.ZERO;
     
+    @Column(name = "view_count")
+    private Integer viewCount = 0;
+    
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -78,4 +81,16 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<Review> reviews;
+    
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private List<Favorite> favorites;
+    
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private List<ProductView> productViews;
+    
+    @ManyToMany(mappedBy = "products")
+    @JsonIgnore
+    private List<Promotion> promotions;
 }

@@ -23,6 +23,10 @@ public class Shipment {
     @JoinColumn(name = "shipper_id", nullable = false)
     private User shipper;
     
+    @ManyToOne
+    @JoinColumn(name = "shipping_provider_id")
+    private ShippingProvider shippingProvider;
+    
     @Enumerated(EnumType.STRING)
     private ShipmentStatus status = ShipmentStatus.ASSIGNED;
     
